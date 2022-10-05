@@ -101,16 +101,75 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
          html.P('Please select which language you want to further explore.', style={'text-align': 'center'}),
          dcc.Dropdown(id="slct_sub",
             options=[
-            {"label": "Javascript", "value": 'javascript'},
-            {"label": "Python", "value": 'python'},
-            {"label": "Java", "value": 'java'},
-            {"label": "c#", "value": 'c#'},
-            {"label": "php", "value": 'php'},
-            {"label": "Android", "value": 'android'},
-            {"label": "Html", "value": 'html'},
-            {"label": "Jquery", "value": 'jquery'},
-            {"label": "c++", "value": 'c++'},
-            {"label": "css", "value": 'css'}],
+            {"label": html.Div(
+                [
+                    html.Img(src="/assets/languages/javascript.svg", height=20),
+                    html.Div("Javascript", style={'font-size': 15, 'padding-left': 10}),
+                ], style={'display': 'flex', 'align-items': 'center', 'justify-content': 'center'}
+            ),"value": "javascript"},
+            
+            {"label": html.Div(
+                [
+                    html.Img(src="/assets/languages/python.svg", height=20),
+                    html.Div("Python", style={'font-size': 15, 'padding-left': 10}),
+                ], style={'display': 'flex', 'align-items': 'center', 'justify-content': 'center'}
+            ),"value": "python"},
+            
+            {"label": html.Div(
+                [
+                    html.Img(src="/assets/languages/java.svg", height=20),
+                    html.Div("Java", style={'font-size': 15, 'padding-left': 10}),
+                ], style={'display': 'flex', 'align-items': 'center', 'justify-content': 'center'}
+            ),"value": "java"},
+            
+            {"label": html.Div(
+                [
+                    html.Img(src="/assets/languages/c.svg", height=20),
+                    html.Div("c#", style={'font-size': 15, 'padding-left': 10}),
+                ], style={'display': 'flex', 'align-items': 'center', 'justify-content': 'center'}
+            ),"value": "c#"},
+        
+            {"label": html.Div(
+                [
+                    html.Img(src="/assets/languages/php.svg", height=20),
+                    html.Div("php", style={'font-size': 15, 'padding-left': 10}),
+                ], style={'display': 'flex', 'align-items': 'center', 'justify-content': 'center'}
+            ),"value": "php"},
+
+            {"label": html.Div(
+                [
+                    html.Img(src="/assets/languages/android.svg", height=20),
+                    html.Div("Android", style={'font-size': 15, 'padding-left': 10}),
+                ], style={'display': 'flex', 'align-items': 'center', 'justify-content': 'center'}
+            ),"value": "android"},
+            
+            {"label": html.Div(
+                [
+                    html.Img(src="/assets/languages/html.svg", height=20),
+                    html.Div("Html", style={'font-size': 15, 'padding-left': 10}),
+                ], style={'display': 'flex', 'align-items': 'center', 'justify-content': 'center'}
+            ),"value": "html"},
+            
+            {"label": html.Div(
+                [
+                    html.Img(src="/assets/languages/jquery.svg", height=20),
+                    html.Div("Jquery", style={'font-size': 15, 'padding-left': 10}),
+                ], style={'display': 'flex', 'align-items': 'center', 'justify-content': 'center'}
+            ),"value": "jquery"},
+            
+            {"label": html.Div(
+                [
+                    html.Img(src="/assets/languages/c-2.svg", height=20),
+                    html.Div("c++", style={'font-size': 15, 'padding-left': 10}),
+                ], style={'display': 'flex', 'align-items': 'center', 'justify-content': 'center'}
+            ),"value": "c++"},
+            
+            {"label": html.Div(
+                [
+                    html.Img(src="/assets/languages/php.svg", height=20),
+                    html.Div("css", style={'font-size': 15, 'padding-left': 10}),
+                ], style={'display': 'flex', 'align-items': 'center', 'justify-content': 'center'}
+            ),"value": "css"}],
          multi=False,
          value='python',
          style={'align-items': 'center', 'justify-content': 'center'}
