@@ -1,7 +1,8 @@
+<p align="center">
+  <img src="Stackoverflow_key.jpeg" width="900" height="500">
+</p>
+
 # Stackoverflow Analysis
-
-
-
 
 ## Project aim
 
