@@ -38,9 +38,9 @@ def cost(examine_query):
     print('Cost of this query: {} MB'.format(round(client.query(examine_query, job_config=dry_run_config).total_bytes_processed*10**-6,2)))
 
 # Create the function to query data
-def request_data(query):
+def request_data(Query):
     # API request
-    answered =client.query(query_answered, job_config=safe_config)
+    answered =client.query(Query, job_config=safe_config)
     # Create dataframe
     answered_df = answered.to_dataframe()
     return answered_df
