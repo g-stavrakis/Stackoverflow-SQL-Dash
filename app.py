@@ -37,6 +37,13 @@ dry_run_config = bigquery.QueryJobConfig(dry_run=True)
 def cost(examine_query):
     print('Cost of this query: {} MB'.format(round(client.query(examine_query, job_config=dry_run_config).total_bytes_processed*10**-6,2)))
 
+# Create the function to query data
+def request_data(query):
+    # API request
+    answered =client.query(query_answered, job_config=safe_config)
+    # Create dataframe
+    answered_df = answered.to_dataframe()
+    return answered_df
 
 # %% Creating the Dashboard
 
@@ -244,13 +251,7 @@ def tags_graphs(slct_num, slct_sub):
                     SELECT (COUNTIF(answer_count>0) / COUNT(1))*100 AS Answered_Percentage, (100- (COUNTIF(answer_count>0) / COUNT(1))*100) AS Unanswered
                     FROM `bigquery-public-data.stackoverflow.posts_questions`
                     """
-
-    # API request
-    answered =client.query(query_answered, job_config=safe_config)
-    # Create dataframe
-    answered_df = answered.to_dataframe()
-
-
+    answered_df = request_data(query_answered)
 
     # Visualise the data
     fig1 = px.pie(values=answered_df.iloc[0], names=answered_df.columns, 
@@ -281,10 +282,7 @@ def tags_graphs(slct_num, slct_sub):
                         ON a.year = t.year
                         ORDER BY a.year
                         """
-    # API request
-    percentages =client.query(query_percentage, job_config=safe_config)
-    # Create dataframe
-    percentages_df = percentages.to_dataframe()
+    percentages_df = request_data(query_percentage)
 
 
     fig2 = px.bar(percentages_df, x="year", y="Total_Number_Questions", text='Answered_Question_Percentage',
@@ -303,10 +301,8 @@ def tags_graphs(slct_num, slct_sub):
                         ORDER BY Instances DESC
                         LIMIT {}
                         """.format(str(slct_num))
-    # API request
-    popular_tags =client.query(query_popular_tags, job_config=safe_config)
-    # Create dataframe
-    popular_tags_df = popular_tags.to_dataframe()
+
+    popular_tags_df = request_data(query_popular_tags)
 
     # Create the graph
     fig3 = px.pie(popular_tags_df, values='Instances', names='Tag_Names', hole=.3, title='Top 10 most frequent tags')
@@ -331,10 +327,7 @@ def tags_graphs(slct_num, slct_sub):
                 GROUP BY year
                 ORDER BY year
                 """.format(selected)
-    # API request
-    subtags_time =client.query(query_subtags_time)
-    # Create dataframe
-    subtags_time_df = subtags_time.to_dataframe()
+    subtags_time_df = request_data(query_subtags_time)
 
     # Create the graph
     fig4 = go.Figure()
@@ -362,10 +355,7 @@ def tags_graphs(slct_num, slct_sub):
                 Order By Instances DESC
                 LIMIT 100
                 """.format(slct_sub,slct_sub)
-    # API request
-    subtags =client.query(query_subtags, job_config=safe_config)
-    # Create dataframe
-    subtags_df = subtags.to_dataframe()
+    subtags_df = request_data(query_subtags)
 
     # Create the graph
     subtags_df_plot = subtags_df.head(10).sort_values('Instances')
@@ -384,10 +374,7 @@ def tags_graphs(slct_num, slct_sub):
     ORDER BY total_score DESC
     LIMIT 15
     """.format(slct_sub)
-    # API request
-    tag_users =client.query(query_tag_users)
-    # Create dataframe
-    tag_users_df = tag_users.to_dataframe()
+    tag_users_df = request_data(query_tag_users)
 
     # Create the graph of the table
     fig6 = go.Figure(data=[go.Table(
